@@ -18,6 +18,7 @@ public class ThreadMain {
 	public static void main(String[] args) // metodo main della classe
 	{
 		input(); // richiamo del metodo 'input' della classe
+		if (controlloFidi() ) {
 		C = new Cliente[nrClienti];
 		Banchiere B = new Banchiere(cassa, C); // creazione oggetto B della classe Banchiere
 		for (int i = 0; i < nrClienti; i++) {
@@ -25,6 +26,7 @@ public class ThreadMain {
 		} 
 		for (int i = 0; i < nrClienti; i++)
 			C[i].start();
+		}
 		
 	}
 
@@ -46,16 +48,23 @@ public class ThreadMain {
 			}
 
 	}
-	public void controlloFidi () {
+	public static boolean controlloFidi () {
 		int sommaFidi=0;
+		String risposta ;
 		for (int i= 0 ; i<nrClienti ; i++) {
-			sommaFidi+=C[i].getFido();	
+			sommaFidi+=fidoClienti[i];	
 		}
 		if (sommaFidi == cassa) {
-			System.out.println("In questo caso non c'è bisogno di fare l'algoritmno di Dijkastra , pigia Y/N per continuare");
-			
+		
+			System.out.println("In questo caso non c'è bisogno di fare l'algoritmno di Dijkastra , pigia Y per continuare");
+			risposta=input.next();
+			if (risposta.equals("Y"))	
+			{
+				return true;
+			}
 			
 		}
+		return false;
 	}
 	
 	
