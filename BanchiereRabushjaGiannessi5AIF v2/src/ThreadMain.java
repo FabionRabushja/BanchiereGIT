@@ -20,20 +20,24 @@ public class ThreadMain { // inizio della classe Main
 	public static void main(String[] args) //metodo main della classe
 	{
 		input(); // richiamo del metodo 'input' della classe
-		if (controlloFidi() == true) {
+		controlloFidi();
+		inizio();
+		
+	}
+	public static void inizio () {
 		C = new Cliente[nrClienti];
+		
 		Banchiere B = new Banchiere(cassa, C); // creazione oggetto B della classe Banchiere
 		for (int i = 0; i < nrClienti; i++) {
-			C[i] = new Cliente(fidoClienti[i], B);
+			C[i] = new Cliente(fidoClienti[i], B , "Cliente "+ i );
 		} 
 		for (int i = 0; i < nrClienti; i++)
 			C[i].start();
-		}
-		
 	}
 
 	public static void input() { // Qui vi si sono le richieste del programma
-		int fido; // dichiarazione della variabile intera
+		int fido; // dichiarazione della variabile intera5
+		
 		System.out.println("Inserisci quanti soldi deve avere la cassa della banca: "); // stampa a video la frase
 		cassa = input.nextInt(); // prende il valore inserito dall'utente e lo mette nella variabile
 		System.out.println("Inserisci quanti clienti devono essere interpellati: "); // stampa a video la frase
@@ -59,7 +63,7 @@ public class ThreadMain { // inizio della classe Main
 
 	}
 
-	public static boolean controlloFidi() { // metodo della classe che controlla la somma dei fidi dei clienti coinvolti
+	public static void controlloFidi() { // metodo della classe che controlla la somma dei fidi dei clienti coinvolti
 		int sommaFidi = 0; // dichiarazione della variabile sommafidi uguale a 0
 		String risposta; // dichiarazione della variabile di tipo stringa risposta
 		for (int i = 0; i < nrClienti; i++) { // ciclo for: inizialmente i=0. cicla se i è minore del numero dei clienti
@@ -78,11 +82,13 @@ public class ThreadMain { // inizio della classe Main
 			risposta = input.next(); // prende l'inserimento dell'utente e lo mette nella variabile risposta
 			if (risposta.equals("y")) // se la risposta dichiarata precedentemente dall'utente è 'Y', allora...
 			{
-				return true; // mi ritorna vero il metodo
+				inizio(); // mi ritorna vero il metodo
 			}
+			else
+				  System.exit(0);
 
 		}
-		return false; // sennò rimane falso il metodo
+		 // sennò rimane falso il metodo
 	}
 	
 	

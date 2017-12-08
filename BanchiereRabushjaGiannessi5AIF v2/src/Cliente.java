@@ -1,15 +1,17 @@
 import java.util.*;
 public class Cliente extends Thread {
 	private int fidoCliente; //il fido massimo che può prendere 
-	private int prestito ;  //qunti soldi ha già preso
+	private int prestito=0 ;  //qunti soldi ha già preso
 	private int richiesta;  //quello che richiede
 	private int tempo;      //tempo a caso che ci impiega per fare delle cazzate dio bestia
 	private int potenzialeRichiesta; //quello che può richiedere
+	private boolean terminato = false ; 
 	Random random = new Random();
 	private Banchiere B;
-	public Cliente (int fidoCliente , Banchiere B) {
+	public Cliente (int fidoCliente , Banchiere B , String name) {
 		this.fidoCliente = fidoCliente; //il massimo del fido che il cliente può ottenere dal banchiere
 		this.B = B; //Banchiere in comune tra i thread 
+		this.setName(name);
 	}
 	public int getFido () { //metodo della classe cliente
 		return fidoCliente; //che da come risultato il fido del cliente in numero
@@ -20,7 +22,13 @@ public class Cliente extends Thread {
 	public int getPrestito () {
 		return prestito;
 	}
-/*	public void run () { //metodo della classe cliente
+	public int getRichiesta () {
+		return richiesta; 
+	}
+	public boolean getTerminato() {
+		return terminato;
+	}
+	public void run () { //metodo della classe cliente
 		while (prestito < fidoCliente)  //quandoi il prestito è minore del fido allora si ripete la funzione 
 		{
 			potenzialeRichiesta = fidoCliente - prestito;
@@ -28,10 +36,11 @@ public class Cliente extends Thread {
 			
 		
 			try {
-				if (B.chiedoPrestito(richiesta,fidoCliente,potenzialeRichiesta, this))
+				if (B.richiedoPrestito(this))
 				{
 					prestito+=richiesta;
-					tempo = random.nextInt(1000);
+					potenzialeRichiesta-=richiesta;		
+					tempo = random.nextInt(100)+1000;
 					try {
 						sleep(tempo);
 					} catch (InterruptedException e) {
@@ -44,16 +53,17 @@ public class Cliente extends Thread {
 				e.printStackTrace();
 			}
 			
-			
-			
+			B.stampa.print();
 		}
+		terminato=true;
 		while (prestito > 0 ) {
 			
-			richiesta = random.nextInt(prestito-fidoCliente)+1;
+		
+			int recupero = random.nextInt(prestito)+1;
 			
-			B.recupero(richiesta);
-			prestito-=richiesta;
-			tempo = random.nextInt(1000);
+			B.recuperoPrestito(recupero);
+			prestito-=recupero;
+			tempo = random.nextInt(100)+1000;
 			try {
 				sleep(tempo);
 			} catch (InterruptedException e) {
@@ -64,5 +74,5 @@ public class Cliente extends Thread {
 			
 		}
 		
-	}*/
+	}
 }

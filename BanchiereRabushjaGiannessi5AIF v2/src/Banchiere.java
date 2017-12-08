@@ -4,29 +4,37 @@ public class Banchiere {
 	private int[] fidoClienti; // il vettore della massima richiesta di ognuno dei clienti
 	private int potenzialeRichiesta;// la potenziale richiesta che può avere un cliente
 	private Cliente[] C; // dichiarazione vettore C di clienti
-	private Cliente CA; // oggetto CA della classe cliente
+	public  Stampa stampa ;
 
 	public Banchiere(int cassa, Cliente C[]) { // costruttore della classe Banchiere.
 		// come parametri: la cassa e il vettore di clienti
 		this.cassa = cassa;
 		this.C = C;
-	}
-	
-	public void richiedoPrestito (/* richiesta */) {
-		if (controlloRichiesta (/*richiesta */ )) {
-			prestitoAccettato(/*richiesta*/);
-		}
+		stampa = new Stampa (C, this);
 		
 	}
+	
+	public synchronized boolean richiedoPrestito (Cliente cAttuale) throws InterruptedException {  // la prima funziona che viene chiamata  e se ritorn true allora il prestito è statto accettato 
+		
+		
+		if (controlloRichiesta (cAttuale)) {  //prima di accettare la richiessta vengono fatti una serie di controlli che aiutano il banchiere di non andare nella situazione di stallo 
+			cassa-=cAttuale.getRichiesta();
+			return prestitoAccettato(); //ritornando true allora il cliente si occupa di mettere apposto la sua tabella 
+		}
+		else {			//in caso la sua richiesta non viene accettata allora il cliente viene messo in wait 
+			wait();
+		}
+		return false; 		//visto che la funzione è boolean allora deve tornare per forza un valore 
+	}
 
-	public boolean  controlloRichiesta () {
-		int richiesta = 0; 
-		if ( richiesta <= cassa ) {
-			if (richiesta == potenzialeRichiesta) {
+	public boolean  controlloRichiesta (Cliente cAttuale) {   //funzione che controlla se la richiesta deve essere accettata oppure no 
+					//serve la richiesta , potenzialeRichiesta , nome del thread 
+		if ( cAttuale.getRichiesta() <= cassa ) {
+			if (cAttuale.getRichiesta() == cAttuale.getPotenzialeRichiesta()) {
 				return true;
 			}
 			else 
-				if (controlloSimulazionePrestito()) {
+				if (controlloSimulazionePrestito(cAttuale)) {
 					return true ; 
 				}
 		}
@@ -35,30 +43,39 @@ public class Banchiere {
 	}
 
 
-	private void prestitoAccettato() {
-		// TODO Auto-generated method stub
-		//cliente.setPrestito(cliente.getPrestito()+richiesta );
+	private boolean prestitoAccettato() {
 		
-		
+		return true ;
 	}
-	private void recuperoSoldi () {
-		
+	public synchronized void recuperoPrestito (int recupero ) {
+		//cliente.setPrestito(cliente.getPrestito()+richiesta);
+		//cambia potenziale richiesta
+		cassa+=recupero;
+		notifyAll();
+		stampa.print();
 	}
 
 
-	private boolean controlloSimulazionePrestito() {
-		// TODO Auto-generated method stub
-		int richiesta; 
-		int nrClienti; 
-		int cassaSimulazione = cassa - richiesta ;
-		int potenzialeRichiesta = potenzialeRichiesta - richiesta;  
-		for (int i=0;i<nrClienti  ;i++)
-			if (cassaSimualzione >= potenzialeRichiesta ) {
-				return true ; 
-				break ; 				
+	private boolean controlloSimulazionePrestito(Cliente cAttuale) {
+	
+
+		int cassaSimulazione = cassa - cAttuale.getRichiesta();
+		int potenzialeRichiestaSimulazione = cAttuale.getPotenzialeRichiesta() -  cAttuale.getRichiesta();  
+		for (int i=0;i<C.length ;i++)
+			if (cassaSimulazione >= C[i].getPotenzialeRichiesta() &&  !C[i].getName().equals( cAttuale.getName()) && !cAttuale.getTerminato()) {
+				return true ; 							
 			}
-		
+			else if (cassaSimulazione >= potenzialeRichiestaSimulazione &&  C[i].getName().equals( cAttuale.getName()) ) {
+				return true;
+			}
+
 		return false;
 	}
+	
+	
+	public int getCassa () {
+		return cassa;
+	}
+		
 
 }
