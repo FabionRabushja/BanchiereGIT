@@ -23,10 +23,10 @@ public class ThreadMain {
 		Banchiere B = new Banchiere(cassa, C); // creazione oggetto B della classe Banchiere
 		for (int i = 0; i < nrClienti; i++) {
 			C[i] = new Cliente(fidoClienti[i], B);
-		}
+		} 
 		for (int i = 0; i < nrClienti; i++)
 			C[i].start();
-
+		hashdash
 	}
 
 	public static void input() {
