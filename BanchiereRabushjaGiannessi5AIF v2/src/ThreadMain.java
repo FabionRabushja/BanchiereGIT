@@ -9,10 +9,9 @@ public class ThreadMain {
 															// input i dati
 	private static int cassa; // creazione variabile intera cassa , statica perchè deve essere globale nella
 								// classe
-	private static int nrClienti; // creazione variabile intera nrClienti , statica perchè deve essere globale
-									// nella classe
-	private static int[] fidoClienti; // creazione vettore intero fidoClienti , statico perchè deve essere globale
-										// nella classe
+	private static int nrClienti; // creazione variabile intera nrClienti , statica perchè deve essere globale nella classe
+									
+	private static int[] fidoClienti; // creazione vettore intero fidoClienti , statico perchè deve essere globale nella classe
 
 	private static Cliente[] C; // creazione di un vettore di thread C della classe Cliente
 
