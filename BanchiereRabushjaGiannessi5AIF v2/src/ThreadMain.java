@@ -4,21 +4,23 @@
  */
 import java.util.*; //package che ci permette di utilizzare lo scanner
 
-public class ThreadMain {
+public class ThreadMain { // inizio della classe Main
+	// variabili static = sono globali nella classe.
 	private static Scanner input = new Scanner(System.in); // creazione dello scanner che ci permette di prendere in
 															// input i dati
-	private static int cassa; // creazione variabile intera cassa , statica perchè deve essere globale nella
-								// classe
-	private static int nrClienti; // creazione variabile intera nrClienti , statica perchè deve essere globale nella classe
-									
-	private static int[] fidoClienti; // creazione vettore intero fidoClienti , statico perchè deve essere globale nella classe
+	private static int cassa; // variabile intera cassa, rappresenta il valore che tiene il banchiere da dare
+								// ai clienti
+	private static int nrClienti; // variabile intera nrClienti, rappresenta il numero effettivo dei clienti
+									// coinvolti
 
-	private static Cliente[] C; // creazione di un vettore di thread C della classe Cliente
+	private static int[] fidoClienti; // vettore intero fidoClienti, qui dentro ci andranno i fidi dei clienti
 
-	public static void main(String[] args) // metodo main della classe
+	private static Cliente[] C; // creazione di un vettore di Clienti(thread) di nome C della classe Cliente
+
+	public static void main(String[] args) //metodo main della classe
 	{
 		input(); // richiamo del metodo 'input' della classe
-		if (controlloFidi() ) {
+		if (controlloFidi() == true) {
 		C = new Cliente[nrClienti];
 		Banchiere B = new Banchiere(cassa, C); // creazione oggetto B della classe Banchiere
 		for (int i = 0; i < nrClienti; i++) {
@@ -30,22 +32,30 @@ public class ThreadMain {
 		
 	}
 
-	public static void input() {
-		int fido;
-		System.out.println("Inserisci quanti soldi deve avere la cassa della banca: ");
-		cassa = input.nextInt(); //prende il valore inserito dall'utente e lo mette nella variabile
-		System.out.println("Inserisci quanti clienti devono essere interpellati: ");
-		nrClienti = input.nextInt(); //prende il valore inserito dall'utente e lo mette nella variabile
-		fidoClienti = new int[nrClienti];
-		for (int i = 0; i < nrClienti; i++) {
-			System.out.println("Inserisci il fido del cliente " + (i + 1) + " : ");
-			fidoClienti[i]= fido= input.nextInt(); 
-			while (fido > cassa ) {
-			System.out.println("Inserisci il fido del cliente un'altra volta  " + (i + 1) + " : ");
-			fido=  fidoClienti[i] = input.nextInt(); // metto il valore preso in input e lo metto nella cella i del vettore
+	public static void input() { // Qui vi si sono le richieste del programma
+		int fido; // dichiarazione della variabile intera
+		System.out.println("Inserisci quanti soldi deve avere la cassa della banca: "); // stampa a video la frase
+		cassa = input.nextInt(); // prende il valore inserito dall'utente e lo mette nella variabile
+		System.out.println("Inserisci quanti clienti devono essere interpellati: "); // stampa a video la frase
+		nrClienti = input.nextInt(); // prende il valore inserito dall'utente e lo mette nella variabile
+		fidoClienti = new int[nrClienti]; // creo il vettore fidoclienti e sarà di tipo intero come indice avra' il
+											// numero dei clienti coinvolti
+
+		for (int i = 0; i < nrClienti; i++) { // ciclo for: inizialmente i=0. cicla se i è minore del numero dei clienti
+			System.out.println("Inserisci il fido del cliente " + (i + 1) + ": "); // stampa a video la frase
+			fidoClienti[i] = fido = input.nextInt(); // dichiarazione multipla: metto il valore preso in input sulla
+														// variabile fido.Il valore della variabile fido lo metto nella
+														// cella i del vettore
+			while (fido > cassa) { //Finche' il valore del fido e' maggiore di quello della cassa
+				System.out.println("Errore! Inserisci nuovamente il fido del cliente " + (i + 1) + ": "); // stampa a
+																											// video la
+																											// frase
+				fido = fidoClienti[i] = input.nextInt(); // dichiarazione multipla: metto il valore preso in input sul
+															// vettore a indice i.Il valore poi lo passo nella variabile
+															// fido
 			}
-			
-			}
+			// incrementa i di 1...
+		}
 
 	}
 
@@ -60,13 +70,13 @@ public class ThreadMain {
 		if (sommaFidi == cassa) { // se la somma totale dei fidi è uguale al valore della cassa, allora fa'...
 
 			System.out.println(
-					"In questo caso non c'è bisogno di fare l'algoritmno di Dijkastra , pigia Y per continuare"); // stampa
+					"In questo caso non c'è bisogno di fare l'algoritmo di Dijkastra, pigia 'y' per continuare..."); // stampa
 																													// a
 																													// video
 																													// la
 																													// frase
 			risposta = input.next(); // prende l'inserimento dell'utente e lo mette nella variabile risposta
-			if (risposta.equals("Y")) // se la risposta dichiarata precedentemente dall'utente è 'Y', allora...
+			if (risposta.equals("y")) // se la risposta dichiarata precedentemente dall'utente è 'Y', allora...
 			{
 				return true; // mi ritorna vero il metodo
 			}
