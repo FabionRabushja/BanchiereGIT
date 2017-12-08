@@ -20,7 +20,7 @@ public class Cliente extends Thread {
 	public int getPrestito () {
 		return prestito;
 	}
-	public void run () { //metodo della classe cliente
+/*	public void run () { //metodo della classe cliente
 		while (prestito < fidoCliente)  //quandoi il prestito è minore del fido allora si ripete la funzione 
 		{
 			potenzialeRichiesta = fidoCliente - prestito;
@@ -63,5 +63,6 @@ public class Cliente extends Thread {
 			
 			
 		}
-	}
+		
+	}*/
 }

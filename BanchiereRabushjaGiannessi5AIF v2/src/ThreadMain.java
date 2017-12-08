@@ -9,10 +9,9 @@ public class ThreadMain {
 															// input i dati
 	private static int cassa; // creazione variabile intera cassa , statica perchè deve essere globale nella
 								// classe
-	private static int nrClienti; // creazione variabile intera nrClienti , statica perchè deve essere globale
-									// nella classe
-	private static int[] fidoClienti; // creazione vettore intero fidoClienti , statico perchè deve essere globale
-										// nella classe
+	private static int nrClienti; // creazione variabile intera nrClienti , statica perchè deve essere globale nella classe
+									
+	private static int[] fidoClienti; // creazione vettore intero fidoClienti , statico perchè deve essere globale nella classe
 
 	private static Cliente[] C; // creazione di un vettore di thread C della classe Cliente
 
@@ -30,6 +29,7 @@ public class ThreadMain {
 	}
 
 	public static void input() {
+		int fido;
 		System.out.println("Inserisci quanti soldi deve avere la cassa della banca: ");
 		cassa = input.nextInt(); //prende il valore inserito dall'utente e lo mette nella variabile
 		System.out.println("Inserisci quanti clienti devono essere interpellati: ");
@@ -37,9 +37,55 @@ public class ThreadMain {
 		fidoClienti = new int[nrClienti];
 		for (int i = 0; i < nrClienti; i++) {
 			System.out.println("Inserisci il fido del cliente " + (i + 1) + " : ");
-			fidoClienti[i] = input.nextInt(); // metto il valore preso in input e lo metto nella cella i del vettore
-		}
+			fidoClienti[i]= fido= input.nextInt(); 
+			while (fido > cassa ) {
+			System.out.println("Inserisci il fido del cliente un'altra volta  " + (i + 1) + " : ");
+			fido=  fidoClienti[i] = input.nextInt(); // metto il valore preso in input e lo metto nella cella i del vettore
+			}
+			
+			}
 
 	}
+	public void controlloFidi () {
+		int sommaFidi=0;
+		for (int i= 0 ; i<nrClienti ; i++) {
+			sommaFidi+=C[i].getFido();	
+		}
+		if (sommaFidi == cassa) {
+			System.out.println("In questo caso non c'è bisogno di fare l'algoritmno di Dijkastra , pigia Y/N per continuare");
+			
+			
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
