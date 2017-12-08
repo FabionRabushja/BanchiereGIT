@@ -26,7 +26,7 @@ public class ThreadMain {
 		} 
 		for (int i = 0; i < nrClienti; i++)
 			C[i].start();
-		hashdash
+		
 	}
 
 	public static void input() {
