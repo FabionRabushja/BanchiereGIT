@@ -13,7 +13,7 @@ public class  Stampa {
 	
 	System.out.println("Nome Cliente \t  P.A \t Fido \t P.R");
 	for (int i = 0 ; i<C.length ; i++) {
-		System.out.print(C[i].getName()+ "\t   " + C[i].getPrestito() + "   \t" + C[i].getFido() + "\t"+ C[i].getPotenzialeRichiesta()+"   " );
+		System.out.print(C[i].getName()+ "\t   " + C[i].getPrestito() + "  \t" + C[i].getFido() + "\t"+ C[i].getPotenzialeRichiesta()+"   " );
 		if (C[i].getTerminato()) {
 			System.out.println(" TERMINATO ");
 		}

@@ -16,15 +16,18 @@ public class Banchiere {
 	
 	public synchronized boolean richiedoPrestito (Cliente cAttuale) throws InterruptedException {  // la prima funziona che viene chiamata  e se ritorn true allora il prestito è statto accettato 
 		
-		
+		while (true) {
 		if (controlloRichiesta (cAttuale)) {  //prima di accettare la richiessta vengono fatti una serie di controlli che aiutano il banchiere di non andare nella situazione di stallo 
 			cassa-=cAttuale.getRichiesta();
-			return prestitoAccettato(); //ritornando true allora il cliente si occupa di mettere apposto la sua tabella 
+			
+			return prestitoAccettato(); //ritornando true allora il cliente si occupa di mettere apposto la sua tabella
+			
 		}
 		else {			//in caso la sua richiesta non viene accettata allora il cliente viene messo in wait 
 			wait();
+			}
 		}
-		return false; 		//visto che la funzione è boolean allora deve tornare per forza un valore 
+		
 	}
 
 	public boolean  controlloRichiesta (Cliente cAttuale) {   //funzione che controlla se la richiesta deve essere accettata oppure no 
@@ -62,7 +65,7 @@ public class Banchiere {
 		int cassaSimulazione = cassa - cAttuale.getRichiesta();
 		int potenzialeRichiestaSimulazione = cAttuale.getPotenzialeRichiesta() -  cAttuale.getRichiesta();  
 		for (int i=0;i<C.length ;i++)
-			if (cassaSimulazione >= C[i].getPotenzialeRichiesta() &&  !C[i].getName().equals( cAttuale.getName()) && !cAttuale.getTerminato()) {
+			if (cassaSimulazione >= C[i].getPotenzialeRichiesta() && !cAttuale.getTerminato()) {
 				return true ; 							
 			}
 			else if (cassaSimulazione >= potenzialeRichiestaSimulazione &&  C[i].getName().equals( cAttuale.getName()) ) {
