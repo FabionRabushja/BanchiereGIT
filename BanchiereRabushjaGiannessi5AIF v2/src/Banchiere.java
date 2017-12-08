@@ -12,4 +12,7 @@ public class Banchiere {
 		this.C = C;
 	}
 
+	public void StatoSicuro() {
+		
+	}
 }
