@@ -11,10 +11,54 @@ public class Banchiere {
 		this.cassa = cassa;
 		this.C = C;
 	}
-
-
-	public void StatoSicuro() {
+	
+	public void richiedoPrestito (/* richiesta */) {
+		if (controlloRichiesta (/*richiesta */ )) {
+			prestitoAccettato(/*richiesta*/);
+		}
 		
+	}
+
+	public boolean  controlloRichiesta () {
+		int richiesta = 0; 
+		if ( richiesta <= cassa ) {
+			if (richiesta == potenzialeRichiesta) {
+				return true;
+			}
+			else 
+				if (controlloSimulazionePrestito()) {
+					return true ; 
+				}
+		}
+		return false;
+		
+	}
+
+
+	private void prestitoAccettato() {
+		// TODO Auto-generated method stub
+		//cliente.setPrestito(cliente.getPrestito()+richiesta );
+		
+		
+	}
+	private void recuperoSoldi () {
+		
+	}
+
+
+	private boolean controlloSimulazionePrestito() {
+		// TODO Auto-generated method stub
+		int richiesta; 
+		int nrClienti; 
+		int cassaSimulazione = cassa - richiesta ;
+		int potenzialeRichiesta = potenzialeRichiesta - richiesta;  
+		for (int i=0;i<nrClienti  ;i++)
+			if (cassaSimualzione >= potenzialeRichiesta ) {
+				return true ; 
+				break ; 				
+			}
+		
+		return false;
 	}
 
 }
