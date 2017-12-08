@@ -48,23 +48,31 @@ public class ThreadMain {
 			}
 
 	}
-	public static boolean controlloFidi () {
-		int sommaFidi=0;
-		String risposta ;
-		for (int i= 0 ; i<nrClienti ; i++) {
-			sommaFidi+=fidoClienti[i];	
+
+	public static boolean controlloFidi() { // metodo della classe che controlla la somma dei fidi dei clienti coinvolti
+		int sommaFidi = 0; // dichiarazione della variabile sommafidi uguale a 0
+		String risposta; // dichiarazione della variabile di tipo stringa risposta
+		for (int i = 0; i < nrClienti; i++) { // ciclo for: inizialmente i=0. cicla se i è minore del numero dei clienti
+			sommaFidi += fidoClienti[i]; // aggiorna la variabile sommafidi, sommando ogni volta il fido del cliente
+											// coinvolto
+			// incrementa i di 1...
 		}
-		if (sommaFidi == cassa) {
-		
-			System.out.println("In questo caso non c'è bisogno di fare l'algoritmno di Dijkastra , pigia Y per continuare");
-			risposta=input.next();
-			if (risposta.equals("Y"))	
+		if (sommaFidi == cassa) { // se la somma totale dei fidi è uguale al valore della cassa, allora fa'...
+
+			System.out.println(
+					"In questo caso non c'è bisogno di fare l'algoritmno di Dijkastra , pigia Y per continuare"); // stampa
+																													// a
+																													// video
+																													// la
+																													// frase
+			risposta = input.next(); // prende l'inserimento dell'utente e lo mette nella variabile risposta
+			if (risposta.equals("Y")) // se la risposta dichiarata precedentemente dall'utente è 'Y', allora...
 			{
-				return true;
+				return true; // mi ritorna vero il metodo
 			}
-			
+
 		}
-		return false;
+		return false; // sennò rimane falso il metodo
 	}
 	
 	
