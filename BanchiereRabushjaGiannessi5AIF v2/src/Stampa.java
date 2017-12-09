@@ -8,7 +8,7 @@ public class  Stampa {
 		this.B=B;
 		
 	}
-	public void print() {
+	public synchronized void print() {
 		
 	
 	System.out.println("Nome Cliente \t  P.A \t Fido \t P.R");

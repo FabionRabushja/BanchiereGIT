@@ -29,6 +29,13 @@ public class Cliente extends Thread {
 		return terminato;
 	}
 	public void run () { //metodo della classe cliente
+		
+		try {
+			B.sincronizzatore();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		while (prestito < fidoCliente)  //quandoi il prestito è minore del fido allora si ripete la funzione 
 		{
 			potenzialeRichiesta = fidoCliente - prestito;

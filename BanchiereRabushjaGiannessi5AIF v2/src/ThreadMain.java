@@ -29,7 +29,7 @@ public class ThreadMain { // inizio della classe Main
 		
 		Banchiere B = new Banchiere(cassa, C); // creazione oggetto B della classe Banchiere
 		for (int i = 0; i < nrClienti; i++) {
-			C[i] = new Cliente(fidoClienti[i], B , "Cliente "+ i );
+			C[i] = new Cliente(fidoClienti[i], B , "Cliente "+ (i+1) );
 		} 
 		for (int i = 0; i < nrClienti; i++)
 			C[i].start();
