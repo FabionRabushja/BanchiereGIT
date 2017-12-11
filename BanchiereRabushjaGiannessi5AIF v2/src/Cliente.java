@@ -1,80 +1,79 @@
 import java.util.*;
 public class Cliente extends Thread {
-	private int fidoCliente; //il fido massimo che può prendere 
-	private int prestito=0 ;  //qunti soldi ha già preso
-	private int richiesta;  //quello che richiede
-	private int tempo;      //tempo a caso che ci impiega per fare delle cazzate dio bestia
-	private int potenzialeRichiesta; //quello che può richiedere
-	private boolean terminato = false ; 
-	Random random = new Random();
-	private Banchiere B;
+	private int fidoCliente; 		            //il fido massimo che può prendere 
+	private int prestito=0 ; 	                 //qunti soldi ha già preso
+	private int richiesta;  		             //quello che richiede
+	private int tempo;     						//tempo a caso che ci impiega per fare delle cazzate dio bestia
+	private int potenzialeRichiesta;			 //quello che può richiedere
+	private boolean terminato = false ; 		//quando è messo a false allora il cliente non ha ancora terminato 
+	private int recupero;  						//variabile che contiene il recupero dei soldi 
+	Random random = new Random();  				//dichiarazione di random 
+	private Banchiere B;						//creare l'oggetto banchiere
+	
+	
+	
+	
+	
+	/*
+	 * Costuttore 
+	 */
 	public Cliente (int fidoCliente , Banchiere B , String name) {
-		this.fidoCliente = fidoCliente; //il massimo del fido che il cliente può ottenere dal banchiere
-		this.B = B; //Banchiere in comune tra i thread 
-		this.setName(name);
+		this.fidoCliente = fidoCliente;			 	//il massimo del fido che il cliente può ottenere dal banchiere
+		this.potenzialeRichiesta=fidoCliente;		//la potenziale richiesta del cliente all'inizio è pari al fido massimo 
+		this.B = B; 								//Banchiere in comune tra i thread 
+		this.setName(name);							//chiamato metodo per settare il nome del thread
 	}
-	public int getFido () { //metodo della classe cliente
-		return fidoCliente; //che da come risultato il fido del cliente in numero
-	}
-	public int getPotenzialeRichiesta () {
-		return potenzialeRichiesta;
-	}
-	public int getPrestito () {
-		return prestito;
-	}
-	public int getRichiesta () {
-		return richiesta; 
-	}
-	public boolean getTerminato() {
-		return terminato;
-	}
+	
+	
+	
+	/* 
+	 * 
+	 * 
+	 * Metodo run del thread praticamente ci sono tutti i commandi che deve esseguire un thread Cliente 
+	 * Nella prima parte  fa un ciclo finché arriva ad avere  un valore pari al fido massimo
+	 * Poi proccede con il recupero dei soldi , restituisce i soldi alla banca in modalità random come li ottiene 
+	 * 
+	 *
+	 */
 	public void run () { //metodo della classe cliente
 		
 		try {
-			B.sincronizzatore();
+			B.sincronizzatore();                            //Sincronizzatore della partenza 
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		while (prestito < fidoCliente)  //quandoi il prestito è minore del fido allora si ripete la funzione 
-		{
-			potenzialeRichiesta = fidoCliente - prestito;
-			richiesta = random.nextInt(potenzialeRichiesta)+1;
+		while (prestito < fidoCliente) {  						//quandoi il prestito è minore del fido allora si ripete la funzione 
 			
-		
+			richiesta=random.nextInt(potenzialeRichiesta)+1;   //richiesta generata in modalità random 
+			  
 			try {
-				if (B.richiedoPrestito(this))
-				{
-					prestito+=richiesta;
-					potenzialeRichiesta-=richiesta;		
-					tempo = random.nextInt(100)+1000;
-					try {
-						sleep(tempo);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
+					
+					B.richiedoPrestito(this);                   //chiama funzione della banca per chiedere il prestito
+			    	tempo= random.nextInt(3000)+100;
+					sleep(tempo);								//per farlo sembrare più reale allora lo mettiamo un po' in pausa di random milisendondi
+									
+			} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			B.stampa.print();
+			B.stampa.print();									//chiama la funzione della stampa per stampare lo status di dijkastra 		
 		}
-		terminato=true;
+			
+		terminato=true;											//quando terminato è a true allora il cliente è terminato ed inizia a restituire 
 		while (prestito > 0 ) {
+
+			recupero = random.nextInt(prestito)+1;				//restituisce in modalità random 
+			B.recuperoPrestito(this);							//funzione che esegue la restituzione dei soldi ottenuti precedemente 
+
+			tempo = random.nextInt(3000)+100;										
 			
-		
-			int recupero = random.nextInt(prestito)+1;
+			try {	
+				
+				sleep(tempo);									//per farlo sembrare più reale allora lo mettiamo un po' in pausa di random milisendondi
 			
-			B.recuperoPrestito(recupero);
-			prestito-=recupero;
-			tempo = random.nextInt(100)+1000;
-			try {
-				sleep(tempo);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 			
@@ -82,4 +81,44 @@ public class Cliente extends Thread {
 		}
 		
 	}
+	
+	/*
+	 * Tutte le funzioni per il get e il set di tutti i valori
+	 * 
+	 * GET=PRENDI
+	 * 
+	 * SET=IMPOSTA
+	 */
+	public int getFido () { 						
+		return fidoCliente; 						
+	}
+	
+	public int getPotenzialeRichiesta () {
+		return potenzialeRichiesta;
+	}
+	
+	public int getPrestito () {
+		return prestito;
+	}
+	
+	public int getRichiesta () {
+		return richiesta; 
+	}
+	
+	public void setPrestito(int prestito) {
+		this.prestito=prestito;
+	}
+	
+	public boolean getTerminato() {
+		return terminato;
+	}
+	
+	public void setPotenzialeRichiesta(int potenzialeRichiesta) {
+		this.potenzialeRichiesta = potenzialeRichiesta;
+	}
+	
+	public int getRecupero() {
+		return recupero; 
+	}
+	
 }
