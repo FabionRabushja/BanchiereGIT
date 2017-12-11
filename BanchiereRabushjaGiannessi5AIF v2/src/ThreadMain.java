@@ -100,7 +100,7 @@ public class ThreadMain { 											// inizio della classe Main
 		
 		for (int i = 0; i < nrClienti; i++) {												 // ciclo for: inizialmente i=0. cicla se i è minore del numero dei clienti
 			
-			sommaFidi += fidoClienti[i]; 													// aggiorna la variabile sommafidi, sommando ogni volta il fido del cliente
+			sommaFidi = fidoClienti[i]; 													// aggiorna la variabile sommafidi, sommando ogni volta il fido del cliente
 																							// coinvolto
 																							// incrementa i di 1...
 		
