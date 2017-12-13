@@ -3,7 +3,7 @@ public class Cliente extends Thread {
 	private int fidoCliente; 		            //il fido massimo che può prendere 
 	private int prestito=0 ; 	                 //qunti soldi ha già preso
 	private int richiesta;  		             //quello che richiede
-	private int tempo;     						//tempo a caso che ci impiega per fare delle cazzate dio bestia
+	private int tempo;     						//tempo a caso che ci impiega 
 	private int potenzialeRichiesta;			 //quello che può richiedere
 	private boolean terminato = false ; 		//quando è messo a false allora il cliente non ha ancora terminato 
 	private int recupero;  						//variabile che contiene il recupero dei soldi 
