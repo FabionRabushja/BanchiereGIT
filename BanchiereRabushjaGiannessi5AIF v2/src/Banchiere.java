@@ -138,9 +138,9 @@ public class Banchiere {
 		
 		cassa-=cAttuale.getRichiesta();																					//cassa diminiuisce in base della richiesta 
 		
-		cAttuale.setPrestito(cAttuale.getPrestito()+cAttuale.getRichiesta());											//il prestito del cliente cresce in base alla richiesta effetuata  
+	//	cAttuale.setPrestito(cAttuale.getPrestito()+cAttuale.getRichiesta());											//il prestito del cliente cresce in base alla richiesta effetuata  
 		
-		cAttuale.setPotenzialeRichiesta(cAttuale.getFido() - cAttuale.getPrestito());									//la potenziale richiesta diminuisce in pase al fido massimo e il prestito attuale 
+	//	cAttuale.setPotenzialeRichiesta(cAttuale.getFido() - cAttuale.getPrestito());									//la potenziale richiesta diminuisce in pase al fido massimo e il prestito attuale 
 	}
 	
 	
@@ -157,7 +157,7 @@ public class Banchiere {
 		
 		cassa+=cAttuale.getRecupero();																				//cassa incremeneta in base del recupero del cliente 
 	
-		cAttuale.setPrestito(cAttuale.getPrestito()-cAttuale.getRecupero());										//il prestito diminuisce in base al recupero del cliente 
+		//cAttuale.setPrestito(cAttuale.getPrestito()-cAttuale.getRecupero());										//il prestito diminuisce in base al recupero del cliente 
 		
 		stampa.print();																								//stampo lo stato di dijskastra 
 			

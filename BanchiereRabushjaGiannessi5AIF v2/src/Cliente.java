@@ -49,7 +49,10 @@ public class Cliente extends Thread {
 			  
 			try {
 					
-					B.richiedoPrestito(this);                   //chiama funzione della banca per chiedere il prestito
+					if (B.richiedoPrestito(this)) {
+						imposta();										//chiama funzione della banca per chiedere il prestito
+					}
+					
 			    	tempo= random.nextInt(3000)+100;
 					sleep(tempo);								//per farlo sembrare più reale allora lo mettiamo un po' in pausa di random milisendondi
 									
@@ -64,8 +67,10 @@ public class Cliente extends Thread {
 		while (prestito > 0 ) {
 
 			recupero = random.nextInt(prestito)+1;				//restituisce in modalità random 
+			
+			recuperoPrestito(recupero);
 			B.recuperoPrestito(this);							//funzione che esegue la restituzione dei soldi ottenuti precedemente 
-
+			
 			tempo = random.nextInt(3000)+100;										
 			
 			try {	
@@ -79,6 +84,35 @@ public class Cliente extends Thread {
 			
 			
 		}
+		
+	}
+	
+	/*
+	 * Metodo imposta 
+	 * imposta tutti i valori al cliente quando viene accettata la richiesta 
+	 * 
+	 * 
+	 */
+	
+	private void imposta() {
+		// TODO Auto-generated method stub
+		
+		setPrestito(getPrestito()+getRichiesta());											//il prestito del cliente cresce in base alla richiesta effetuata  
+		
+		setPotenzialeRichiesta(getFido() - getPrestito());									//la potenziale richiesta diminuisce in pase al fido massimo e il prestito attuale 
+	}
+	
+	/*
+	 * 
+	 * Metodo del recupero del prestito 
+	 * restituisco i soldi alla banca in base al numero generato casualmente dal cliente 
+	 * incremento la cassa 
+	 * diminuisco il prestito attuale 
+	 * 
+	 */
+	private void recuperoPrestito(int recupero) {
+		
+		setPrestito(getPrestito()-getRecupero());											//il prestito diminuisce in base al recupero del cliente
 		
 	}
 	
